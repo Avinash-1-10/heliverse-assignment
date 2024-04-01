@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaUserPlus, FaUsers } from 'react-icons/fa';
 
-const Navbar = () => {
+const Navbar = ({setShowAddForm}) => {
   return (
     <nav className="flex items-center justify-between bg-gray-800 text-white p-4 shadow-md">
       {/* Logo on the left */}
@@ -11,7 +11,7 @@ const Navbar = () => {
 
       {/* Buttons with icons on the right */}
       <div className="flex items-center">
-        <button className="flex items-center mr-4 bg-green-500 hover:bg-green-600 px-2 py-1 rounded-md">
+        <button className="flex items-center mr-4 bg-green-500 hover:bg-green-600 px-2 py-1 rounded-md" onClick={()=>setShowAddForm(true)}>
           <FaUserPlus className="mr-2" />
           Add User
         </button>

@@ -3,6 +3,7 @@ import Cards from "./components/Cards";
 import UserFilters from "./components/UserFilters";
 import Navbar from "./components/Navbar";
 import axios from "axios";
+import UserForm from "./components/UserForm";
 
 const App = () => {
   const [users, setUsers] = useState([]);
@@ -12,6 +13,7 @@ const App = () => {
   const [domain, setDomain] = useState("");
   const [gender, setGender] = useState("");
   const [isAvailable, setIsAvailable] = useState("");
+  const [showAddForm, setShowAddForm] = useState(false);
 
   console.log(isAvailable);
 
@@ -41,7 +43,7 @@ const App = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar setShowAddForm={setShowAddForm}/>
       <UserFilters
         setName={setName}
         setDomain={setDomain}
@@ -54,6 +56,7 @@ const App = () => {
         currentPage={currentPage}
         handlePageChange={handlePageChange}
       />
+      {showAddForm && <UserForm closeForm={() => setShowAddForm(false)} />}
     </div>
   );
 };
