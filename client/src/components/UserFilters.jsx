@@ -1,9 +1,31 @@
 import React, { useState } from "react";
 
+const domains = [
+  "Sales",
+  "IT",
+  "Marketing",
+  "Business Development",
+  "Management",
+  "UI Designing",
+  "Finance",
+]
+
+const genders = [
+  "Male",
+  "Agender",
+  "Polygender",
+  "Bigender",
+  "Genderqueer",
+  "Genderfluid",
+  "Non-binary",
+  "Female",
+]
+
 const UserFilters = ({
-  domains = ["Domain1", "Domain2"],
-  genders = ["Male", "Female"],
-  onFilterChange = () => {},
+  setName,
+  setDomain,
+  setGender,
+  setIsAvailable
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilters, setSelectedFilters] = useState({
@@ -28,12 +50,11 @@ const UserFilters = ({
         type="text"
         placeholder="Search by Name"
         className="w-full md:w-1/3 p-2 mb-2 md:mb-0 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-        value={searchQuery}
-        onChange={handleSearchChange}
+        onChange={(e) => setName(e.target.value)}
       />
       <select
         className="w-full md:w-auto p-2 mb-2 md:mb-0 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-        onChange={(e) => handleFilterChange("domain", e.target.value)}
+        onChange={(e) => setDomain(e.target.value)}
       >
         <option value="">All Domains</option>
         {domains.map((domain, index) => (
@@ -44,7 +65,7 @@ const UserFilters = ({
       </select>
       <select
         className="w-full md:w-auto p-2 mb-2 md:mb-0 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-        onChange={(e) => handleFilterChange("gender", e.target.value)}
+        onChange={(e) => setGender(e.target.value)}
       >
         <option value="">All Genders</option>
         {genders.map((gender, index) => (
@@ -56,7 +77,7 @@ const UserFilters = ({
       <select
         className="w-full md:w-auto p-2 mb-2 md:mb-0 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         onChange={(e) =>
-          handleFilterChange("available", e.target.value === "true")
+          setIsAvailable(e.target.value)
         }
       >
         <option value="">All Availability</option>

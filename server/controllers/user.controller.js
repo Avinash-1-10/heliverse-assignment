@@ -1,10 +1,8 @@
 import User from "../models/user.model.js";
 
-
 const getUsers = async (req, res, next) => {
     try {
-        const { page = 1, name, domain, gender } = req.query;
-        console.log(name)
+        const { page = 1, name, domain, gender, available } = req.query;
         const pageSize = 20;
 
         // Constructing the query
@@ -20,6 +18,10 @@ const getUsers = async (req, res, next) => {
         }
         if (gender) {
             query.gender = gender;
+        }
+        if (available) {
+            // Corrected the condition for available
+            query.available = available === "true";
         }
 
         // Count total users
@@ -48,9 +50,16 @@ const getUsers = async (req, res, next) => {
     }
 };
 
+const getUserById = async (req, res, next) => {
+    // Implementation for getting user by ID
+};
 
-const getUserById = async (req, res,next) => {};
-const createUser = async (req, res,next) => {};
-const updateUser = async (req, res,next) => {};
+const createUser = async (req, res, next) => {
+    // Implementation for creating a new user
+};
 
-export {getUsers, getUserById, createUser, updateUser}
+const updateUser = async (req, res, next) => {
+    // Implementation for updating user details
+};
+
+export { getUsers, getUserById, createUser, updateUser };

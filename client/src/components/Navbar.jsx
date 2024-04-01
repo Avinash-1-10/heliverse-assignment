@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="flex items-center justify-between bg-gray-800 text-white p-4 shadow-md">
       {/* Logo on the left */}
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold">My App</h1>
+        <h1 className="text-lg font-semibold">U-Manager</h1>
       </div>
 
       {/* Buttons with icons on the right */}
