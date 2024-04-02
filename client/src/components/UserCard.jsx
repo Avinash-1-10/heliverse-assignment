@@ -2,9 +2,20 @@ import React, { useState } from "react";
 import { FaEnvelope, FaGenderless, FaUserCog, FaEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import UserForm from "./UserForm";
+import axios from "axios";
 
 const UserCard = ({ user }) => {
   const [showEditForm, setShowEditForm] = useState(false);
+  const handleDelete = async () => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:8000/api/users/${user?._id}`
+      );
+      alert(data.message);
+    } catch (error) {
+     alert(error?.response?.data?.message);
+    }
+  };
   return (
     <>
       <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1">
@@ -48,17 +59,19 @@ const UserCard = ({ user }) => {
             >
               {user.available ? "Available" : "Not Available"}
             </div>
-            <div
-              className="flex items-center "
-              
-            >
-              <FaEdit className="mr-2 cursor-pointer text-gray-600" onClick={() => setShowEditForm(true)}/>
-              <MdDeleteOutline className="text-xl cursor-pointer text-red-500"/>
+            <div className="flex items-center ">
+              <FaEdit
+                className="mr-2 cursor-pointer text-gray-600"
+                onClick={() => setShowEditForm(true)}
+              />
+              <MdDeleteOutline className="text-xl cursor-pointer text-red-500" onClick={handleDelete}/>
             </div>
           </div>
         </div>
       </div>
-      {showEditForm && <UserForm closeForm={() => setShowEditForm(false)} user={user}/>}
+      {showEditForm && (
+        <UserForm closeForm={() => setShowEditForm(false)} user={user} />
+      )}
     </>
   );
 };

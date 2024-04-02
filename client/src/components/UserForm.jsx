@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const domains = [
   "Sales",
@@ -22,6 +25,7 @@ const genders = [
 ];
 
 const UserForm = ({ closeForm, user }) => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: user?.first_name || "",
     lastName: user?.last_name || "",
@@ -39,19 +43,58 @@ const UserForm = ({ closeForm, user }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Form submitted:", formData);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      avatar: "",
-      gender: "",
-      domain: "",
-      availability: "",
-    });
+    setLoading(true);
+    try {
+      const { data } = await axios.post("http://localhost:8000/api/users", {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        avatar: formData.avatar,
+        domain: formData.domain,
+        gender: formData.gender,
+        available: formData.availability,
+      });
+      toast.success(data.message);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        avatar: "",
+        gender: "",
+        domain: "",
+        availability: "",
+      });
+      setLoading(false);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+      setLoading(false);
+    }
   };
+
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      const { data } = await axios.put(`http://localhost:8000/api/users/${user?._id}`, {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        avatar: formData.avatar,
+        domain: formData.domain,
+        gender: formData.gender,
+        available: formData.availability,
+      });
+      toast.success(data.message);
+      setLoading(false);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+      setLoading(false);
+    }
+  };
+
+
 
   return (
     <div
@@ -59,7 +102,7 @@ const UserForm = ({ closeForm, user }) => {
       onClick={closeForm}
     >
       <form
-        onSubmit={handleSubmit}
+        onSubmit={user ? handleUpdate : handleSubmit}
         onClick={(e) => e.stopPropagation()}
         className="relative flex flex-col space-y-4 w-full max-w-md mx-auto px-4 py-8 rounded-lg bg-white shadow-md"
       >
@@ -111,7 +154,7 @@ const UserForm = ({ closeForm, user }) => {
         </div>
         <div className="flex flex-col space-y-1">
           <label htmlFor="avatar" className="text-sm font-medium">
-            Avatar URL
+            Avatar URL (Optional)
           </label>
           <input
             type="url"
@@ -120,7 +163,6 @@ const UserForm = ({ closeForm, user }) => {
             value={formData.avatar}
             onChange={handleChange}
             className="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            required
           />
         </div>
         <div className="flex flex-col space-y-1">
@@ -182,11 +224,13 @@ const UserForm = ({ closeForm, user }) => {
         </div>
         <button
           type="submit"
+          disabled={loading}
           className="bg-blue-500 text-white rounded-md p-2 mt-4 hover:bg-blue-600 transition duration-300 ease-in-out"
         >
-          Submit
+          {loading ? "Loading..." : user ?"Update": "Submit"}
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
