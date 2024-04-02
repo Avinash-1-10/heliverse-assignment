@@ -20,7 +20,6 @@ const getUsers = async (req, res, next) => {
             query.gender = gender;
         }
         if (available) {
-            // Corrected the condition for available
             query.available = available === "true";
         }
 

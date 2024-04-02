@@ -31,8 +31,8 @@ const UserForm = ({ closeForm, user }) => {
     domain: user?.domain || "",
     availability: user?.available || "",
   });
-  if(user){
-    formData.availability = user.available
+  if (user) {
+    formData.availability = user.available;
   }
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -41,7 +41,7 @@ const UserForm = ({ closeForm, user }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Form submitted:", formData); // Replace with your form submission logic
+    console.log("Form submitted:", formData);
     setFormData({
       firstName: "",
       lastName: "",

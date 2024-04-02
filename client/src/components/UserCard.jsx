@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaGenderless, FaUserCog, FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 import UserForm from "./UserForm";
 
 const UserCard = ({ user }) => {
@@ -48,11 +49,11 @@ const UserCard = ({ user }) => {
               {user.available ? "Available" : "Not Available"}
             </div>
             <div
-              className="flex items-center text-gray-700 cursor-pointer"
-              onClick={() => setShowEditForm(true)}
+              className="flex items-center "
+              
             >
-              <FaEdit className="mr-2" />
-              <p className="text-sm">Edit</p>
+              <FaEdit className="mr-2 cursor-pointer text-gray-600" onClick={() => setShowEditForm(true)}/>
+              <MdDeleteOutline className="text-xl cursor-pointer text-red-500"/>
             </div>
           </div>
         </div>
