@@ -4,7 +4,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import UserForm from "./UserForm";
 import axios from "axios";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, setReload }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const handleDelete = async () => {
     try {
@@ -12,6 +12,7 @@ const UserCard = ({ user }) => {
         `http://localhost:8000/api/users/${user?._id}`
       );
       alert(data.message);
+      setReload(prev=>!prev)
     } catch (error) {
      alert(error?.response?.data?.message);
     }
@@ -70,7 +71,7 @@ const UserCard = ({ user }) => {
         </div>
       </div>
       {showEditForm && (
-        <UserForm closeForm={() => setShowEditForm(false)} user={user} />
+        <UserForm closeForm={() => setShowEditForm(false)} setReload={setReload} user={user} />
       )}
     </>
   );

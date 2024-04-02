@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserFilters from "../components/UserFilters";
 import Cards from "../components/Cards";
-import UserForm from "../components/UserForm";
 import axios from "axios";
 
 const User = () => {
@@ -12,8 +11,8 @@ const User = () => {
   const [domain, setDomain] = useState("");
   const [gender, setGender] = useState("");
   const [isAvailable, setIsAvailable] = useState("");
+  const [reload, setReload] = useState(false);
 
-//   console.log(isAvailable);
 
   const getUsers = async () => {
     try {
@@ -33,7 +32,7 @@ const User = () => {
 
   useEffect(() => {
     getUsers();
-  }, [currentPage, name, gender, domain, isAvailable]);
+  }, [currentPage, name, gender, domain, isAvailable, reload]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -45,12 +44,14 @@ const User = () => {
         setDomain={setDomain}
         setGender={setGender}
         setIsAvailable={setIsAvailable}
+        setReload={setReload}
       />
       <Cards
         users={users}
         totalPages={totalPages}
         currentPage={currentPage}
         handlePageChange={handlePageChange}
+        setReload={setReload}
       />
     </div>
   );

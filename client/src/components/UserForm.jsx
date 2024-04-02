@@ -24,7 +24,7 @@ const genders = [
   "Female",
 ];
 
-const UserForm = ({ closeForm, user }) => {
+const UserForm = ({ closeForm, setReload, user }) => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: user?.first_name || "",
@@ -66,6 +66,7 @@ const UserForm = ({ closeForm, user }) => {
         domain: "",
         availability: "",
       });
+      setReload((prev) => !prev);
       setLoading(false);
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -77,24 +78,26 @@ const UserForm = ({ closeForm, user }) => {
     event.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.put(`http://localhost:8000/api/users/${user?._id}`, {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        avatar: formData.avatar,
-        domain: formData.domain,
-        gender: formData.gender,
-        available: formData.availability,
-      });
+      const { data } = await axios.put(
+        `http://localhost:8000/api/users/${user?._id}`,
+        {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          avatar: formData.avatar,
+          domain: formData.domain,
+          gender: formData.gender,
+          available: formData.availability,
+        }
+      );
       toast.success(data.message);
+      setReload((prev) => !prev);
       setLoading(false);
     } catch (error) {
       toast.error(error?.response?.data?.message);
       setLoading(false);
     }
   };
-
-
 
   return (
     <div
@@ -227,7 +230,7 @@ const UserForm = ({ closeForm, user }) => {
           disabled={loading}
           className="bg-blue-500 text-white rounded-md p-2 mt-4 hover:bg-blue-600 transition duration-300 ease-in-out"
         >
-          {loading ? "Loading..." : user ?"Update": "Submit"}
+          {loading ? "Loading..." : user ? "Update" : "Submit"}
         </button>
       </form>
       <ToastContainer />

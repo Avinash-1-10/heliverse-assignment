@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FaUserPlus } from "react-icons/fa";
+import UserForm from "./UserForm";
 
 const domains = [
   "Sales",
@@ -25,26 +27,13 @@ const UserFilters = ({
   setName,
   setDomain,
   setGender,
-  setIsAvailable
+  setIsAvailable,
+  setReload
 }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedFilters, setSelectedFilters] = useState({
-    domain: null,
-    gender: null,
-    available: null,
-  });
-
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-    onFilterChange({ ...selectedFilters, searchQuery: event.target.value });
-  };
-
-  const handleFilterChange = (filter, value) => {
-    setSelectedFilters({ ...selectedFilters, [filter]: value });
-    onFilterChange({ ...selectedFilters, [filter]: value, searchQuery });
-  };
+  const [showAddForm, setShowAddForm] = useState(false);
 
   return (
+    <>
     <div className="flex flex-wrap items-center justify-between  p-4 rounded-md shadow-md mb-4">
       <input
         type="text"
@@ -84,7 +73,17 @@ const UserFilters = ({
         <option value="true">Available</option>
         <option value="false">Not Available</option>
       </select>
+
+      <button
+          className="flex items-center mr-4 bg-green-500 hover:bg-green-600 px-2 py-1 rounded-md text-white"
+          onClick={() => setShowAddForm(true)}
+        >
+          <FaUserPlus className="mr-2" />
+          Add User
+        </button>
     </div>
+    {showAddForm && <UserForm closeForm={()=>setShowAddForm(false)} setReload={setReload}/>}
+    </>
   );
 };
 

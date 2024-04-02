@@ -3,9 +3,13 @@ import { createTeam, getTeamById, getTeams } from "../controllers/team.controlle
 
 const router = Router();
 
+// Route to retrieve all teams
 router.get("/", getTeams);
-router.get("/:id", getTeamById);
-router.post("/", createTeam);
 
+// Route to retrieve a specific team by ID
+router.get("/:id", getTeamById);
+
+// Route to create a new team
+router.post("/", createTeam);
 
 export default router;
