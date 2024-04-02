@@ -24,5 +24,4 @@ router.put("/:id", updateUser);
 // DELETE /api/users/:id: Delete user by ID
 router.delete("/:id", deleteUser);
 
-
-export default router
+export default router;
