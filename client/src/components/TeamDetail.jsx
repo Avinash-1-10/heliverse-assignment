@@ -10,7 +10,7 @@ const TeamDetail = () => {
 
   const getTeam = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:8000/api/team/${teamID}`);
+      const { data } = await axios.get(`https://u-manager.onrender.com/api/team/${teamID}`);
       setTeam(data.data);
     } catch (error) {
       console.error("Error fetching team:", error);

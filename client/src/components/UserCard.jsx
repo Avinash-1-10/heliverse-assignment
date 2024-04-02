@@ -9,7 +9,7 @@ const UserCard = ({ user, setReload }) => {
   const handleDelete = async () => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:8000/api/users/${user?._id}`
+        `https://u-manager.onrender.com/api/users/${user?._id}`
       );
       alert(data.message);
       setReload(prev=>!prev)

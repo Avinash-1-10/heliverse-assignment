@@ -16,7 +16,7 @@ const TeamForm = ({ closeForm,setReload }) => {
   const getUsers = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/users?available=${true}&page=${currentPage}`
+        `https://u-manager.onrender.com/api/users?available=${true}&page=${currentPage}`
       );
       setUsers(data.users);
       setTotalPages(data.totalPages);
@@ -62,7 +62,7 @@ const TeamForm = ({ closeForm,setReload }) => {
     setLoading(true);
     const members = selectedUsers.map((user) => user._id);
     try {
-      const { data } = await axios.post("http://localhost:8000/api/team", {
+      const { data } = await axios.post("https://u-manager.onrender.com/api/team", {
         teamName,
         members,
       });

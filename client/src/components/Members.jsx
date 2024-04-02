@@ -6,7 +6,7 @@ const Members = ({ member }) => {
   const getUser = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/users/${member}`
+        `https://u-manager.onrender.com/api/users/${member}`
       );
       setUser(data);
     } catch (error) {

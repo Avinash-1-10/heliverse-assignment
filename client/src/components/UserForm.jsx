@@ -47,7 +47,7 @@ const UserForm = ({ closeForm, setReload, user }) => {
     event.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.post("http://localhost:8000/api/users", {
+      const { data } = await axios.post("https://u-manager.onrender.com/api/users", {
         first_name: formData.firstName,
         last_name: formData.lastName,
         email: formData.email,
@@ -79,7 +79,7 @@ const UserForm = ({ closeForm, setReload, user }) => {
     setLoading(true);
     try {
       const { data } = await axios.put(
-        `http://localhost:8000/api/users/${user?._id}`,
+        `https://u-manager.onrender.com/api/users/${user?._id}`,
         {
           first_name: formData.firstName,
           last_name: formData.lastName,

@@ -12,17 +12,20 @@ const User = () => {
   const [gender, setGender] = useState("");
   const [isAvailable, setIsAvailable] = useState("");
   const [reload, setReload] = useState(false);
-
+  const [loading, setLoading] = useState(false);
 
   const getUsers = async () => {
+    setLoading(true);
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/users?page=${currentPage}&name=${name}&gender=${gender}&domain=${domain}&available=${isAvailable}`
+        `https://u-manager.onrender.com/api/users?page=${currentPage}&name=${name}&gender=${gender}&domain=${domain}&available=${isAvailable}`
       );
       setUsers(data.users);
       setTotalPages(data.totalPages);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching users:", error);
+      setLoading(false);
     }
   };
 
@@ -46,13 +49,19 @@ const User = () => {
         setIsAvailable={setIsAvailable}
         setReload={setReload}
       />
-      <Cards
-        users={users}
-        totalPages={totalPages}
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-        setReload={setReload}
-      />
+      {loading ? (
+        <div className="flex justify-center items-center h-16">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+        </div>
+      ) : (
+        <Cards
+          users={users}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+          setReload={setReload}
+        />
+      )}
     </div>
   );
 };
