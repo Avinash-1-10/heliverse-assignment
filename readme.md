@@ -1,8 +1,8 @@
 # Full Stack User Management Web Application
 
-## Frontend Deployed Link [https://u-manager.onrender.com](https://u-manager.onrender.com)
+## Backend Deployed Link [https://u-manager.onrender.com](https://u-manager.onrender.com)
 
-## Backend Deployed Link [https://u-manager.vercel.app](https://u-manager.vercel.app)
+## Frontend Deployed Link [https://u-manager.vercel.app](https://u-manager.vercel.app)
 
 This is a full-stack web application that allows users to view and interact with a list of users. Users can perform various actions such as viewing users, searching by name, filtering by domain, gender, and availability, creating teams, and viewing team details.
 
